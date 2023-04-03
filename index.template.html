@@ -28,30 +28,54 @@ https://psim.us/dev
 <meta id="viewport" name="viewport" content="width=device-width" />
 <title>Showdown!</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<link rel="shortcut icon" href="//play.pokemonshowdown.com/favicon.ico" id="dynamic-favicon" />
-<link rel="icon" sizes="128x128" href="//play.pokemonshowdown.com/favicon-128.png" />
-<link rel="stylesheet" href="//play.pokemonshowdown.com/style/battle.css?" />
-<link rel="stylesheet" href="//play.pokemonshowdown.com/style/client.css?" />
-<link rel="stylesheet" href="//play.pokemonshowdown.com/style/sim-types.css?" />
-<link rel="stylesheet" href="//play.pokemonshowdown.com/style/utilichart.css?" />
-<link rel="stylesheet" href="//play.pokemonshowdown.com/style/font-awesome.css?" />
+<link rel="shortcut icon" href="https://nmplay.pseudo.gq/favicon.ico" id="dynamic-favicon" />
+<link rel="icon" sizes="128x128" href="https://nmplay.pseudo.gq/favicon-128.png" />
+<link rel="stylesheet" href="https://nmplay.pseudo.gq/style/battle.css?f1b31d7c" />
+<link rel="stylesheet" href="https://nmplay.pseudo.gq/style/client.css?bfa80a23" />
+<link rel="stylesheet" href="https://nmplay.pseudo.gq/style/sim-types.css?dad3cdf0" />
+<link rel="stylesheet" href="https://nmplay.pseudo.gq/style/utilichart.css?e39c48cf" />
+<link rel="stylesheet" href="https://nmplay.pseudo.gq/style/font-awesome.css?932f42c7" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="manifest" href="/manifest.json" />
 <!--[if lte IE 8]><script>document.location.replace('http://pokemonshowdown.com/autodownload/win');</script><![endif]-->
 
-<!-- head custom -->
+<script>
+	window.onerror = function(err, uri, line) {
+		var msg = uri + ':' + line + ': ' + err;
+		if ('ga' in window) {
+			ga('send', 'event', 'Client error', msg);
+		} else {
+			alert('ERROR: ' + msg);
+		}
+		return false;
+	};
+</script>
+
+<style>
+	#eg-ccpa-msg-id { position: absolute; top: 100%; padding: 10px 20px !important; font-size: 9pt !important; text-align: left !important; text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000; }
+</style>
+
 
 <div id="header" class="header">
-	<img class="logo" src="//play.pokemonshowdown.com/pokemonshowdownbeta.png" srcset="//play.pokemonshowdown.com/pokemonshowdownbeta@2x.png 2x" alt="Pok&eacute;mon Showdown! (beta)" width="146" height="44" /><div class="maintabbarbottom"></div>
+	<img class="logo" src="https://nmplay.pseudo.gq/pokemonshowdownbeta.png" srcset="https://nmplay.pseudo.gq/pokemonshowdownbeta@2x.png 2x" alt="Pok&eacute;mon Showdown! (beta)" width="146" height="44" /><div class="maintabbarbottom"></div>
 </div>
 <div class="ps-room scrollable" id="mainmenu"><div class="mainmenuwrapper">
 	<div class="leftmenu">
 		<div class="activitymenu">
 			<div class="pmbox">
-				<div class="pm-window news-embed" data-newsid="<!-- newsid -->">
+				<div class="pm-window news-embed" data-newsid="110">
 					<h3><button class="closebutton" tabindex="-1"><i class="fa fa-times-circle"></i></button><button class="minimizebutton" tabindex="-1"><i class="fa fa-minus-circle"></i></button>News</h3>
 					<div class="pm-log" style="max-height:none">
-						<!-- news -->
+						<div class="newsentry" data-newsid="110" data-date="1671463190">
+							<h4>Remember to transfer your teams!</h4>
+							<p>
+								And back them up when you clear cache.
+							</p>
+							<p>
+								&mdash;<strong>Madamadam</strong> 
+								<small class="date">on Dec 24, 2022</small>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -64,64 +88,64 @@ https://psim.us/dev
 	</div>
 	<div class="mainmenufooter">
 		<div class="bgcredit"></div>
-		<small><a href="//dex.pokemonshowdown.com/" target="_blank">Pok&eacute;dex</a> | <a href="//replay.pokemonshowdown.com/" target="_blank">Replays</a> | <a href="//pokemonshowdown.com/rules" target="_blank">Rules</a> | <a href="//pokemonshowdown.com/credits" target="_blank">Credits</a> | <a href="http://smogon.com/forums/" target="_blank">Forum</a></small>
+		<small><a href="https://dex.pokemonshowdown.com/" target="_blank">Pok&eacute;dex</a> | <a href="https://replay.pokemonshowdown.com/" target="_blank">Replays</a> | <a href="https://pokemonshowdown.com/rules" target="_blank">Rules</a> | <a href="https://pokemonshowdown.com/credits" target="_blank">Credits</a> | <a href="http://smogon.com/forums/" target="_blank">Forum</a></small>
 	</div>
 </div></div>
 <script>
 	var LM = document.getElementById('loading-message');
 	LM.innerHTML += ' DONE<br />Loading libraries...';
 </script>
-<script nomodule src="//play.pokemonshowdown.com/js/lib/ps-polyfill.js"></script>
-<script src="//play.pokemonshowdown.com/config/config.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/jquery-2.1.4.min.js"></script>
-<script src="//play.pokemonshowdown.com/js/lib/jquery-cookie.js"></script>
-<script src="//play.pokemonshowdown.com/js/lib/autoresize.jquery.min.js?"></script>
-<script src="//play.pokemonshowdown.com/js/battle-sound.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/html-css-sanitizer-minified.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/lodash.core.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/backbone.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/d3.v3.min.js"></script>
+<script nomodule src="https://nmplay.pseudo.gq/js/lib/ps-polyfill.js"></script>
+<script src="https://nmplay.pseudo.gq/config/config.js?1788b977"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/jquery-2.1.4.min.js"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/jquery-cookie.js"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/autoresize.jquery.min.js?6d0545f7"></script>
+<script src="https://nmplay.pseudo.gq/js/battle-sound.js?8e5efe0f"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/html-css-sanitizer-minified.js?803e34bd"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/lodash.core.js?e9be4c2d"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/backbone.js?8a8d8296"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/d3.v3.min.js"></script>
 
 <script>
 	LM.innerHTML += ' DONE<br />Loading data...';
 </script>
 
-<script src="//play.pokemonshowdown.com/js/battledata.js?"></script>
-<script src="//play.pokemonshowdown.com/js/storage.js?"></script>
-<script src="//play.pokemonshowdown.com/data/pokedex-mini.js?"></script>
-<script src="//play.pokemonshowdown.com/data/typechart.js?"></script>
-<script src="//play.pokemonshowdown.com/js/battle.js?"></script>
-<script src="//play.pokemonshowdown.com/js/lib/sockjs-1.4.0-nwjsfix.min.js"></script>
-<script src="//play.pokemonshowdown.com/js/lib/color-thief.min.js"></script>
+<script src="https://nmplay.pseudo.gq/js/battledata.js?2397e9ff"></script>
+<script src="https://nmplay.pseudo.gq/js/storage.js?a6873cae"></script>
+<script src="https://nmplay.pseudo.gq/data/pokedex-mini.js?47969e03"></script>
+<script src="https://nmplay.pseudo.gq/data/typechart.js?05eaf9f6"></script>
+<script src="https://nmplay.pseudo.gq/js/battle.js?898d0d96"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/sockjs-1.4.0-nwjsfix.min.js"></script>
+<script src="https://nmplay.pseudo.gq/js/lib/color-thief.min.js"></script>
 
 <script>
 	LM.innerHTML += ' DONE<br />Loading client...';
 </script>
 
-<script src="//play.pokemonshowdown.com/js/client.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-topbar.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-mainmenu.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-teambuilder.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-ladder.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-chat.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-chat-tournament.js?"></script>
-<script src="//play.pokemonshowdown.com/js/battle-tooltips.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-battle.js?"></script>
-<script src="//play.pokemonshowdown.com/js/client-rooms.js?"></script>
-<script src="//play.pokemonshowdown.com/data/graphics.js?"></script>
+<script src="https://nmplay.pseudo.gq/js/client.js?cd579fa6"></script>
+<script src="https://nmplay.pseudo.gq/js/client-topbar.js?92f42c6e"></script>
+<script src="https://nmplay.pseudo.gq/js/client-mainmenu.js?6bb35fb3"></script>
+<script src="https://nmplay.pseudo.gq/js/client-teambuilder.js?dc130d51"></script>
+<script src="https://nmplay.pseudo.gq/js/client-ladder.js?51684a2d"></script>
+<script src="https://nmplay.pseudo.gq/js/client-chat.js?401ea807"></script>
+<script src="https://nmplay.pseudo.gq/js/client-chat-tournament.js?fa256a42"></script>
+<script src="https://nmplay.pseudo.gq/js/battle-tooltips.js?9462809f"></script>
+<script src="https://nmplay.pseudo.gq/js/client-battle.js?a44f791c"></script>
+<script src="https://nmplay.pseudo.gq/js/client-rooms.js?cff12ea8"></script>
+<script src="https://nmplay.pseudo.gq/data/graphics.js?f1696a69"></script>
 
 <script>
 	var app = new App();
 </script>
 
-<script src="//play.pokemonshowdown.com/data/pokedex.js?"></script>
-<script src="//play.pokemonshowdown.com/data/moves.js?"></script>
-<script src="//play.pokemonshowdown.com/data/items.js?"></script>
-<script src="//play.pokemonshowdown.com/data/abilities.js?"></script>
+<script src="https://nmplay.pseudo.gq/data/pokedex.js?fbb82dcd"></script>
+<script src="https://nmplay.pseudo.gq/data/moves.js?071c8317"></script>
+<script src="https://nmplay.pseudo.gq/data/items.js?a90e3a13"></script>
+<script src="https://nmplay.pseudo.gq/data/abilities.js?05e6e35b"></script>
 
-<script src="//play.pokemonshowdown.com/data/search-index.js?"></script>
-<script src="//play.pokemonshowdown.com/data/teambuilder-tables.js?"></script>
-<script src="//play.pokemonshowdown.com/js/battle-dex-search.js?"></script>
-<script src="//play.pokemonshowdown.com/js/search.js?"></script>
+<script src="https://nmplay.pseudo.gq/data/search-index.js?dd06fe1c"></script>
+<script src="https://nmplay.pseudo.gq/data/teambuilder-tables.js?0fcc5fd2"></script>
+<script src="https://nmplay.pseudo.gq/js/battle-dex-search.js?967afb5b"></script>
+<script src="https://nmplay.pseudo.gq/js/search.js?27440caf"></script>
 
-<script src="//play.pokemonshowdown.com/data/aliases.js?" async="async"></script>
+<script src="https://nmplay.pseudo.gq/data/aliases.js?f02ecee5" async="async"></script>

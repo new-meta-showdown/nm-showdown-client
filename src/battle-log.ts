@@ -345,7 +345,7 @@ export class BattleLog {
 			message += `${list[i]}, `;
 		}
 		return `${message}and ${list[list.length - 1]}`;
-		return message;
+		// return message;
 	}
 	/**
 	 * To avoid trolling with nicknames, we can't just run this through
