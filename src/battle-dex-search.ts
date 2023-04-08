@@ -590,9 +590,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			}
 			format = format.slice(4) as ID;
 		}
-		if (format.includes('newmeta')) {
-			this.formatType = 'newmeta';
-		}
+		
 		if (format.startsWith('stadium')) {
 			this.formatType = 'stadium';
 			format = format.slice(7) as ID;
@@ -621,6 +619,9 @@ abstract class BattleTypedSearch<T extends SearchType> {
 				format.includes('natdex') ? format.slice(6) : format.slice(11)) as ID;
 			this.formatType = 'natdex';
 			if (!format) format = 'ou' as ID;
+		}
+		if (format.includes('newmeta')) {
+			this.formatType = 'newmeta';
 		}
 		if (this.formatType === 'letsgo') format = format.slice(6) as ID;
 		if (format.includes('metronome')) {
@@ -753,7 +754,7 @@ abstract class BattleTypedSearch<T extends SearchType> {
 
 		return '' as ID;
 	}
-	protected canLearn(speciesid: ID, moveid: ID) {
+	protected canLearn(speciesid: ID, moveid: ID, pokemonSet?: PokemonSet): boolean {
 		const move = this.dex.moves.get(moveid);
 		if (this.formatType === 'natdex' && move.isNonstandard && move.isNonstandard !== 'Past') {
 			return false;
@@ -776,6 +777,16 @@ abstract class BattleTypedSearch<T extends SearchType> {
 			} else if (gen === 6) {
 				genChar = 'p';
 			}
+		}
+		if (pokemonSet && toID(pokemonSet.species) === 'fusionmon' && pokemonSet.name?.includes('/')) {
+			var learnable = false;
+			for (const fusion of pokemonSet.name.split('/')) {
+				var newSet = pokemonSet;
+				newSet.species = fusion;
+				learnable = this.canLearn(toID(fusion), moveid, newSet);
+				if (learnable) break;
+			}
+			return learnable;
 		}
 		let learnsetid = this.firstLearnsetid(speciesid);
 		while (learnsetid) {
@@ -1095,6 +1106,19 @@ class BattleAbilitySearch extends BattleTypedSearch<'ability'> {
 		abilitySet.push(['ability', toID(species.abilities['0'])]);
 		if (species.abilities['1']) {
 			abilitySet.push(['ability', toID(species.abilities['1'])]);
+		}
+		// 2, 3, 4, 5
+		if (species.abilities['2']) {
+			abilitySet.push(['ability', toID(species.abilities['2'])]);
+		}
+		if (species.abilities['3']) {
+			abilitySet.push(['ability', toID(species.abilities['3'])]);
+		}
+		if (species.abilities['4']) {
+			abilitySet.push(['ability', toID(species.abilities['4'])]);
+		}
+		if (species.abilities['5']) {
+			abilitySet.push(['ability', toID(species.abilities['5'])]);
 		}
 		if (species.abilities['H']) {
 			abilitySet.push(['header', "Hidden Ability"]);
@@ -1476,6 +1500,19 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 	getBaseResults() {
 		if (!this.species) return this.getDefaultResults();
 		const dex = this.dex;
+		if (this.set && toID(this.set.species) === 'fusionmon' 
+			// @ts-ignore
+			&& toID(this.species) === 'fusionmon' && this.set.name.includes("/")) {
+			// @ts-ignore
+			const twoPokemon = this.set.name.split("/");
+			// @ts-ignore
+			this.species = dex.species.get(twoPokemon[0]);
+			const firstPokemonMoves: AnyObject = this.getBaseResults();
+			// @ts-ignore
+			this.species = dex.species.get(twoPokemon[1]);
+			const secondPokemonMoves: AnyObject = this.getBaseResults();
+			return firstPokemonMoves.concat(secondPokemonMoves);
+		}
 		let species = dex.species.get(this.species);
 		const format = this.format;
 		const isHackmons = (format.includes('hackmons') || format.endsWith('bh'));

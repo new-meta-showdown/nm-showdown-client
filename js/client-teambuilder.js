@@ -1182,6 +1182,13 @@
 		},
 		renderSet: function (set, i) {
 			var species = this.curTeam.dex.species.get(set.species);
+			if (toID(set.species) == 'fusionmon' && set.name.includes("/")) {
+				var fusionmons = set.name.split("/");
+				var newSpecies = fusePokemon(Dex.species.get(fusionmons[0]), Dex.species.get(fusionmons[1]));
+				for (var key in newSpecies) {
+					species[key] = newSpecies[key];
+				}
+			}
 			var isLetsGo = this.curTeam.format.includes('letsgo');
 			var isBDSP = this.curTeam.format.includes('bdsp');
 			var isNewMeta = this.curTeam.format.includes('newmeta');

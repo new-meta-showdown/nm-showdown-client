@@ -786,6 +786,30 @@ const Dex = new class implements ModdedDex {
 
 	getTeambuilderSprite(pokemon: any, gen: number = 0) {
 		if (!pokemon) return '';
+
+		if (toID(pokemon.species) === 'fusionmon' && pokemon.name.includes('/')) {
+			var fusionmons = pokemon.name.split('/');
+			// @ts-ignore (declared in client.js)
+			var headNum = fusion_ids[toID(fusionmons[0])] ?? 0;
+			// @ts-ignore
+			var bodyNum = fusion_ids[toID(fusionmons[1])] ?? 0;
+			
+			var fusionmonSprite = 'https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/' + headNum + '.' + bodyNum + '.png';
+			// @ts-ignore
+			xhr.open('GET', fusionmonSprite, false);
+			// @ts-ignore
+			xhr.send();
+			// @ts-ignore
+			if (xhr.status === 404) {
+				fusionmonSprite = 'https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/' + headNum + '/' + headNum + '.' + bodyNum + '.png';
+			}
+			// the image must be 96x96. it is currently 288x288
+			// resize image through url
+			fusionmonSprite = 'https://images.weserv.nl/?url=' + fusionmonSprite + '&w=96&h=96';
+			// the background-position must be 10px 5px
+			return 'background-image:url(' + fusionmonSprite + ');background-position:10px 5px;background-repeat:no-repeat';
+		}
+
 		const data = this.getTeambuilderSpriteData(pokemon, gen);
 		const shiny = (data.shiny ? '-shiny' : '');
 		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
