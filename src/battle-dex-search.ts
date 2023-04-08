@@ -1497,6 +1497,7 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 	static readonly GOOD_DOUBLES_MOVES = [
 		'allyswitch', 'bulldoze', 'coaching', 'electroweb', 'faketears', 'fling', 'followme', 'healpulse', 'helpinghand', 'junglehealing', 'lifedew', 'lunarblessing', 'muddywater', 'pollenpuff', 'psychup', 'ragepowder', 'safeguard', 'skillswap', 'snipeshot', 'wideguard',
 	] as ID[] as readonly ID[];
+	// @ts-ignore
 	getBaseResults() {
 		if (!this.species) return this.getDefaultResults();
 		const dex = this.dex;
@@ -1507,11 +1508,63 @@ class BattleMoveSearch extends BattleTypedSearch<'move'> {
 			const twoPokemon = this.set.name.split("/");
 			// @ts-ignore
 			this.species = dex.species.get(twoPokemon[0]);
-			const firstPokemonMoves: AnyObject = this.getBaseResults();
+			var firstPokemonMoves: AnyObject = this.getBaseResults();
 			// @ts-ignore
 			this.species = dex.species.get(twoPokemon[1]);
-			const secondPokemonMoves: AnyObject = this.getBaseResults();
-			return firstPokemonMoves.concat(secondPokemonMoves);
+			var secondPokemonMoves: AnyObject = this.getBaseResults();
+
+			var moveHeaders1: AnyObject = [];
+			var moveHeaders2: AnyObject = [];
+			
+			// @ts-ignore
+			for (const el of firstPokemonMoves) {
+				if (el[0].includes("header")) {
+					// @ts-ignore
+					moveHeaders1.push(firstPokemonMoves.indexOf(el));
+				}
+			}
+			// @ts-ignore
+			for (const el of secondPokemonMoves) {
+				if (el[0].includes("header")) {
+					// @ts-ignore
+					moveHeaders2.push(secondPokemonMoves.indexOf(el));
+				}
+			}
+			// usefulMoves = [move[1] for move in firstPokemonMoves.slice(moveHeaders1[0] + 1, moveHeaders1[1] - 1)]
+			// translate into js
+			var usefulMoves: string[] = [];
+			// @ts-ignore
+			for (const move of firstPokemonMoves.slice(moveHeaders1[0] + 1, moveHeaders1[1])) {
+				usefulMoves.push(move[1]);
+			}
+			// @ts-ignore
+			for (const move of secondPokemonMoves.slice(moveHeaders2[0] + 1, moveHeaders2[1])) {
+				usefulMoves.push(move[1]);
+			}
+			usefulMoves.sort();
+			// @ts-ignore
+			var usuallyUselessMoves: string[] = [];
+			for (const move of firstPokemonMoves.slice(moveHeaders1[1] + 1)) {
+				usuallyUselessMoves.push(move[1]);
+			}
+
+			for (const move of secondPokemonMoves.slice(moveHeaders2[1] + 1)) {
+				usuallyUselessMoves.push(move[1]);
+			}
+			usuallyUselessMoves.sort();
+			var results: AnyObject = [];
+			results.push(["header", "Useful Moves"]);
+			for (const move of usefulMoves) {
+				results.push(["move", move]);
+			}
+			results.push(["header", "Usually useless moves"]);
+			for (const move of usuallyUselessMoves) {
+				results.push(["move", move]);
+			}
+			// remove duplicates
+			// @ts-ignore
+			results = results.filter((v, i, a) => a.findIndex(t => (t[0] === v[0] && t[1] === v[1])) === i);
+			return results;
 		}
 		let species = dex.species.get(this.species);
 		const format = this.format;

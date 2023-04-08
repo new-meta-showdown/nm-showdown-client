@@ -521,7 +521,6 @@
 		return buf;
 	};
 	Search.prototype.renderMoveRow = function (move, matchStart, matchLength, errorMessage, attrs) {
-		console.log(new Error().stack);
 		if (!attrs) attrs = '';
 		if (!move) return '<li class="result">Unrecognized move</li>';
 		var id = toID(move.name);
