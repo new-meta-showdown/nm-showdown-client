@@ -2129,6 +2129,10 @@ class BattleTooltips {
 				if (species.exists && species.abilities) {
 					abilityData.possibilities = [species.abilities['0']];
 					if (species.abilities['1']) abilityData.possibilities.push(species.abilities['1']);
+					if (species.abilities['2']) abilityData.possibilities.push(species.abilities['2']);
+					if (species.abilities['3']) abilityData.possibilities.push(species.abilities['3']);
+					if (species.abilities['4']) abilityData.possibilities.push(species.abilities['4']);
+					if (species.abilities['5']) abilityData.possibilities.push(species.abilities['5']);
 					if (species.abilities['H']) abilityData.possibilities.push(species.abilities['H']);
 					if (species.abilities['S']) abilityData.possibilities.push(species.abilities['S']);
 				}

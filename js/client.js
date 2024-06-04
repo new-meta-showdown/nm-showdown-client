@@ -126,7 +126,7 @@ function fusePokemon(pokemon1, pokemon2) {
 }
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://nmplay.pseudo.gq/sprites/fusion_ids.json', false);
+xhr.open('GET', 'https://nmplay.othermetas.com/sprites/fusion_ids.json', false);
 xhr.send();
 var fusion_ids = JSON.parse(xhr.responseText);
 

@@ -485,6 +485,40 @@ const Dex = new class implements ModdedDex {
 		mod?: string,
 		dynamax?: boolean,
 	} = {gen: 6}) {
+		if (pokemon instanceof Pokemon) {
+			if (toID(pokemon.getBaseSpecies().name) === 'fusionmon' && pokemon.name.includes('/')) {
+				var fusionmons = pokemon.name.split('/');
+				// @ts-ignore (declared in client.js)
+				var headNum = fusion_ids[toID(fusionmons[0])] ?? 0;
+				// @ts-ignore
+				var bodyNum = fusion_ids[toID(fusionmons[1])] ?? 0;
+				
+				var fusionmonSprite = 'https://raw.githubusercontent.com/Aegide/custom-fusion-sprites/main/CustomBattlers/' + headNum + '.' + bodyNum + '.png';
+				// @ts-ignore
+				xhr.open('GET', fusionmonSprite, false);
+				// @ts-ignore
+				xhr.send();
+				// @ts-ignore
+				if (xhr.status === 404) {
+					fusionmonSprite = 'https://raw.githubusercontent.com/Aegide/autogen-fusion-sprites/master/Battlers/' + headNum + '/' + headNum + '.' + bodyNum + '.png';
+				}
+				// the image must be 96x96. it is currently 288x288
+				// resize image through url
+				fusionmonSprite = 'https://images.weserv.nl/?url=' + fusionmonSprite + '&w=96&h=96';
+				let spriteData = {
+					gen: this.gen,
+					w: 96,
+					h: 96,
+					y: 0,
+					url: fusionmonSprite,
+					pixelated: true,
+					isFrontSprite: false,
+					cryurl: Dex.resourcePrefix + 'audio/cry/' + toID(fusionmons[0]) + '.mp3',
+					shiny: options.shiny,
+				};
+				return spriteData;
+			}
+		}
 		const mechanicsGen = options.gen || 6;
 		let isDynamax = !!options.dynamax;
 		if (pokemon instanceof Pokemon) {
